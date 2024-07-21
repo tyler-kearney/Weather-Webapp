@@ -3,7 +3,7 @@ const weatherInfoElem = document.getElementById("weather-info");
 
 // Func to fetch weather data
 async function getWeatherData(city) {
-    const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=<span class="math-inline">\{city\}&appid\=</span>${apiKey}`;
+    const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
     const forcastUrl = `https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude=minutely,daily&appid=${apiKey}`;
 
     try {
