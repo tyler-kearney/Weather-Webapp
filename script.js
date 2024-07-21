@@ -88,7 +88,7 @@ function displayWeather(weatherData, hourlyData) {
 
 // Event Listener for the search button
 document.getElementById('search-btn').addEventListener('click', () => {
-    const cityName = document.getElementById('city-input').ariaValueMax;
+    const cityName = document.getElementById('city-input').value;
     if (!cityName) {
         alert("Please enter a city name");
         return;
