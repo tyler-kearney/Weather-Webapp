@@ -1,0 +1,16 @@
+{
+  "name": "weather-webapp",
+  "version": "1.0.0",
+  "description": "A web based weather app",
+  "main": "scripts.js",
+  "scripts": {
+    "test": "start"
+  },
+  "keywords": [
+    "weather",
+    "js",
+    "web"
+  ],
+  "author": "kazu",
+  "license": "MIT"
+}
