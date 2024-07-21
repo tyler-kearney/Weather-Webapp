@@ -3,8 +3,33 @@ const weatherInfoElem = document.getElementById("weather-info");
 
 // Func to fetch weather data
 async function getWeatherData(city) {
-    const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
-    const forcastUrl = `https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude=minutely,daily&appid=${apiKey}`;
+    const cityParts = city.split(',');
+    const cityName = cityParts[0].trim();
+    let stateCode = null;
+    let countryCode = null;
+
+    // Check for state/country code
+    if (cityParts.length > 1) {
+        const additionalInfo = cityParts[1].trim();
+        // Check for US State abbreviation format
+        if (additionalInfo.length === 2 && additionalInfo.match(/^[A-Z]{2}$/)) {
+            stateCode = additionalInfo;
+        } else {
+            countryCode = additionalInfo;
+        }
+    }
+    let weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}`;
+
+    if (stateCode) {
+        weatherUrl += `,${stateCode}`;
+    }
+
+    // add country code if acailable, prioritize state
+    if (countryCode && !stateCode) {
+        weatherUrl += `&country=${countryCode}`;
+    }
+
+    weatherUrl += `&appid=${apiKey}`;
 
     try {
         const weatherResponse = await fetch(weatherUrl);
@@ -88,10 +113,11 @@ function displayWeather(weatherData, hourlyData) {
 
 // Event Listener for the search button
 document.getElementById('search-btn').addEventListener('click', () => {
-    const cityName = document.getElementById('city-input').value;
+    const cityName = document.getElementById('city-input').textContent;
     if (!cityName) {
         alert("Please enter a city name");
-        return;
+        
+    } else {
+        getWeatherData(cityName);
     }
-    getWeatherData(cityName);
-})
+});
