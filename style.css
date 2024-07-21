@@ -60,3 +60,8 @@ h1 {
     color: #666;
     margin-bottom: 5px;
 }
+
+.temp, .feels-like, .humidity, .description {
+    padding: 5px 10px;
+    margin-bottom: 5px;
+}

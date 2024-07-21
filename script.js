@@ -40,11 +40,11 @@ async function getWeatherData(city) {
         }
 
         const { lat, lon } = weatherData.coord;
-        const forecast = await fetch(forecastUrl.replace('{lat}', lat).replace('{lon}', lon));
-        const forecastData = await forecastResponse.json();
+        /* const forecast = await fetch(forecastUrl.replace('{lat}', lat).replace('{lon}', lon));
+        const forecastData = await forecastResponse.json(); */
 
         // Process and display data
-        displayWeather(weatherData, forecastData.hourly.slice(1, 13));
+        displayWeather(weatherData);
     } catch (error) {
         console.error(error);
         weatherInfoElem.innerHTML = `Error fetching weather data<hr>${error}`;
@@ -52,7 +52,7 @@ async function getWeatherData(city) {
 }
 
 // Function to display weather information
-function displayWeather(weatherData, hourlyData) {
+function displayWeather(weatherData) {
     const cityName = weatherData.name;
     const currentTemp = Math.floor(weatherData.main.temp - 273.15); // Convert Kelvin to Celsius
     const feelsLike = Math.floor(weatherData.main.feels_like - 273.15);
@@ -113,7 +113,7 @@ function displayWeather(weatherData, hourlyData) {
 
 // Event Listener for the search button
 document.getElementById('search-btn').addEventListener('click', () => {
-    const cityName = document.getElementById('city-input').textContent;
+    const cityName = document.getElementById('city-input').value;
     if (!cityName) {
         alert("Please enter a city name");
         
